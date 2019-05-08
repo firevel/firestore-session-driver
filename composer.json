@@ -13,5 +13,17 @@
             "name": "Michael Slowik",
             "email": "michael.slowik@firevel.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Firevel\\FirestoreSessionDriver\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Firevel\\FirestoreSessionDriver\\FirestoreSessionServiceProvider"
+            ]
+        }
+    }
 }
