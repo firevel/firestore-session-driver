@@ -1,0 +1,17 @@
+{
+    "name": "firevel/firestore-session-driver",
+    "description": "Firestore session driver for Laravel app running inside Google App Engine.",
+    "keywords": ["laravel", "session", "driver", "firestore", "app engine", "google cloud", "firevel"],
+    "type": "library",
+    "require": {
+        "google/cloud-firestore": "^1.5",
+        "grpc/grpc": "^1.19"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Slowik",
+            "email": "michael.slowik@firevel.com"
+        }
+    ]
+}
