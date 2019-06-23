@@ -77,6 +77,12 @@ class FirestoreSessionHandler implements SessionHandlerInterface
      */
     public function read($sessionId)
     {
+        $snapshot = $this->getCollection()->document($sessionId)->snapshot();
+
+        if (empty($this->getCollection()->document($sessionId)->snapshot()->data())) {
+            return '';
+        }
+
         $session = (object) $this->getCollection()->document($sessionId)->snapshot()->data();
 
         if ($this->expired($session)) {
@@ -205,7 +211,7 @@ class FirestoreSessionHandler implements SessionHandlerInterface
      */
     public function destroy($sessionId)
     {
-        $this->getCollection()->document($sessionId)->reference()->delete();
+        $this->getCollection()->document($sessionId)->delete();
 
         return true;
     }
