@@ -1,5 +1,5 @@
 # Firevel - Firestore session driver
-Firestore session driver for [Laravel](https://www.laravel.com) and [Firevel](https://www.firevel.com) compatible with Google App Engine standard environment (PHP 7.2).
+Firestore session driver for [Laravel](https://www.laravel.com) and [Firevel](https://www.firevel.com) compatible with Google App Engine standard environment (PHP 7.3).
 
 ## Installation
 1) Install package with `composer require firevel/firestore-session-driver`
