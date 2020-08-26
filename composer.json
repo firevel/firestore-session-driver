@@ -4,8 +4,8 @@
     "keywords": ["laravel", "session", "driver", "firestore", "app engine", "google cloud", "firevel"],
     "type": "library",
     "require": {
-        "google/cloud-firestore": "^1.5",
-        "grpc/grpc": "^1.19"
+        "google/cloud-firestore": "^1.14",
+        "grpc/grpc": "^1.30"
     },
     "license": "MIT",
     "authors": [
