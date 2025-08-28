@@ -41,14 +41,14 @@ class FirestoreSessionHandler implements SessionHandlerInterface
     protected $container;
 
     /**
-     * Create a new firestore session handler instance.
+     * Create a new Firestore session handler instance.
      *
      * @param  \Illuminate\Database\FirestoreClient  $client
      * @param  int  $minutes
      * @param  \Illuminate\Foundation\Application|null  $container
      * @return void
      */
-    public function __construct(FirestoreClient $client, $collection, $minutes, Application $container = null)
+    public function __construct(FirestoreClient $client, $collection, $minutes, ?Application $container = null)
     {
         $this->client = $client;
         $this->collection = $collection;
