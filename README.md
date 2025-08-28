@@ -1,4 +1,4 @@
-# Firevel – Firestore Session Driver
+# Laravel – Firestore Session Driver
 
 A Firestore-backed session driver for [Laravel](https://www.laravel.com), designed to run smoothly on **Google App Engine (Standard environment)**.
 
