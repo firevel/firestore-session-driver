@@ -1,21 +1,57 @@
-# Firevel - Firestore session driver
-Firestore session driver for [Laravel](https://www.laravel.com) and [Firevel](https://www.firevel.com) compatible with Google App Engine standard environment (PHP 7.3).
+# Firevel – Firestore Session Driver
+
+A Firestore-backed session driver for [Laravel](https://www.laravel.com), designed to run smoothly on **Google App Engine (Standard environment)**.
 
 ## Installation
-1) Install package with `composer require firevel/firestore-session-driver`
 
-2) Update your app.yaml with:
+```bash
+composer require firevel/firestore-session-driver
 ```
+
+## Configuration
+
+### 1) Set the session driver
+
+**App Engine (app.yaml):**
+```yaml
 env_variables:
   SESSION_DRIVER: firestore
+  # Optional: tune GC batch size (see "Garbage collection & scale")
+  # SESSION_GC_BATCH_SIZE: 500
 ```
 
+**Local development (.env):**
+```env
+SESSION_DRIVER=firestore
+# SESSION_GC_BATCH_SIZE=500
+```
+
+> Firestore credentials on App Engine Standard are picked up via Application Default Credentials. For local development, set `GOOGLE_APPLICATION_CREDENTIALS` if needed.
+
+### 2) (Optional) Session lifetime
+
+Configure the session lifetime as usual in `config/session.php` or via `.env`:
+
+```env
+SESSION_LIFETIME=120
+```
+
+## Garbage collection & scale
+
+Firestore session cleanup happens via Laravel’s session **lottery**. On very high-traffic apps this can be a bottleneck. You can tune or offload it:
+
+- **Adjust the lottery** in `config/session.php` (note the correct path/key):
+  ```php
+  'lottery' => [2, 100], // e.g., 2% chance per request
+  ```
+- **Batch size**: control how many expired sessions are removed per GC pass:
+  ```env
+  SESSION_GC_BATCH_SIZE=500
+  ```
+- **Heavy load / HA setups**: consider moving GC out of request flow. Run cleanup on a schedule (cron/Scheduler) and set a very low lottery, or temporarily switch to the `cookie` driver if GC becomes a hotspot.
+
+> In extreme cases, run garbage collection from a scheduled job/cron and reduce the in-request lottery to near zero.
+
 ## Limitations
-Check [Firestore Quotas and Limits](https://cloud.google.com/firestore/quotas).
 
-## High availability applications
-If you like to use this driver in high load applications, watch garbage collection that can be a bottleneck.
-
-Modify `config.sessions.lottery` value to set how often garbage collection should happen, and app.yaml `SESSION_GC_BATCH_SIZE` to define garbage collection batch size.
-
-If extremal cases do manual garbage collection from cron job, or shift to `cookie` driver.
+- Review Firestore’s quotas and limits before deploying high-throughput workloads: <https://cloud.google.com/firestore/quotas>
